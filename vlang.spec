@@ -17,6 +17,7 @@ Source1:  vc_%{version}.tar.xz
 BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
 BuildRequires: pkgconfig(libssl)
+BuildRequires: git-core
 
 Provides: v = %{version}-%{release}
 
