@@ -3,6 +3,7 @@
 
 %global realname v
 %global upstream vlang
+%global gitbase  https://github.com
 
 Summary:  The V Programming Language
 Name:     vlang
@@ -11,7 +12,7 @@ Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
-Source0:  https://github.com/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
+Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
 
 BuildRequires: devel(libatomic)
@@ -27,6 +28,8 @@ Simple, fast, safe, compiled. For developing maintainable software.
 %prep
 %setup -q -n %{realname}-%{version}
 %setup -T -D -a 1 -q -n %{realname}-%{version}
+
+git clone %{gitbase}/%{upstream}/markdown.git ~/.vmodules/markdown
 
 mkdir -p %{buildroot}%{_bindir} \
          %{buildroot}%{_libexecdir}/%{name}
