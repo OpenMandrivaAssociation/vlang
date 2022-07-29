@@ -14,6 +14,7 @@ Group:    Development/Other
 Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
+Source2:  vmod_markdown_bbbd324.zip
 
 BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
@@ -29,7 +30,11 @@ Simple, fast, safe, compiled. For developing maintainable software.
 %setup -q -n %{realname}-%{version}
 %setup -T -D -a 1 -q -n %{realname}-%{version}
 
-git clone %{gitbase}/%{upstream}/markdown.git ~/.vmodules/markdown
+# Required for the "build-tools" command.
+%setup -T -D -a 2 -q -n %{realname}-%{version}
+
+mkdir -p ~/.vmodules
+mv -vn markdown-master ~/.vmodules/markdown
 
 mkdir -p %{buildroot}%{_bindir} \
          %{buildroot}%{_libexecdir}/%{name}
