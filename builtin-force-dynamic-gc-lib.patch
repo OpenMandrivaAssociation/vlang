@@ -1,0 +1,14 @@
+diff --git a/vlib/builtin/builtin_d_gcboehm.c.v b/vlib/builtin/builtin_d_gcboehm.c.v
+index fec2b0ef6..02c409aa3 100644
+--- a/vlib/builtin/builtin_d_gcboehm.c.v
++++ b/vlib/builtin/builtin_d_gcboehm.c.v
+@@ -2,7 +2,8 @@ module builtin
+ 
+ #flag -DGC_THREADS=1
+ 
+-$if dynamic_boehm ? {
++//$if dynamic_boehm ? {
++$if true {
+ 	$if windows {
+ 		$if tinyc {
+ 			#flag -I @VEXEROOT/thirdparty/libgc/include

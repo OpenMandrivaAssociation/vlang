@@ -15,6 +15,8 @@ Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
 Source2:  vmod_markdown_bbbd324.zip
+Patch0:   bultin-always-enable-GC_THREADS.patch
+Patch1:   builtin-force-dynamic-gc-lib.patch
 
 BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
@@ -27,7 +29,7 @@ Provides: v = %{version}-%{release}
 Simple, fast, safe, compiled. For developing maintainable software.
 
 %prep
-%setup -q -n %{realname}-%{version}
+%autosetup -p 1 -n %{realname}-%{version}
 %setup -T -D -a 1 -q -n %{realname}-%{version}
 
 # Required for the "build-tools" command.
@@ -41,7 +43,7 @@ mkdir -p %{buildroot}%{_bindir} \
 
 %build
 %set_build_flags
-export VFLAGS="-prod -d dynamic_boehm"
+export VFLAGS="-prod"
 
 $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 ./tmp_1 -no-parallel -o tmp_2 $VFLAGS cmd/v
