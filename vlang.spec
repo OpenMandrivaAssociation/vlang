@@ -51,13 +51,14 @@ $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 ./v test-all
 
 %install
+mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libexecdir}/%{name}
 cp -a %{realname} %{realname}.mod %{realname}lib cmd %{buildroot}%{_libexecdir}/%{name}/
 ln -s %{_libexecdir}/%{name}/%{realname} %{buildroot}%{_bindir}/%{realname}
 touch %{buildroot}%{_libexecdir}/%{name}/cmd/tools/.disable_autorecompilation
 
 %files
+%dir %{_libexecdir}/%{name}
 %doc doc/* CHANGELOG.md
 %license LICENSE
 
 %{_bindir}/%{realname}
-%{_libexecdir}/%{name}
