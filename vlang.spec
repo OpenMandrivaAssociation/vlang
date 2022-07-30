@@ -18,10 +18,12 @@ Source2:  vmod_markdown_bbbd324.zip
 Patch0:   bultin-always-enable-GC_THREADS.patch
 Patch1:   builtin-force-dynamic-gc-lib.patch
 
+BuildRequires: git-core
 BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
 BuildRequires: pkgconfig(libssl)
-BuildRequires: git-core
+BuildRequires: pkgconfig(mariadb)
+BuildRequires: pkgconfig(sqlite3)
 
 Provides: v = %{version}-%{release}
 
@@ -50,7 +52,9 @@ $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 ./tmp_2 -o v $VFLAGS cmd/v
 
 ./v build-tools
-./v test-all
+
+%check
+./v test vlib/v/tests
 
 %install
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libexecdir}/%{name}
