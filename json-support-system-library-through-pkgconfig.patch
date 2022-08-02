@@ -1,0 +1,34 @@
+From f6c4391a1f5339c6fcafea2db5b40cff7be81be9 Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Mon, 1 Aug 2022 22:52:20 +0200
+Subject: [PATCH] json: support system cJSON library through pkgconfig
+
+---
+ vlib/json/json_primitives.v | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/vlib/json/json_primitives.v b/vlib/json/json_primitives.v
+index aade8e54c..5afb179dc 100644
+--- a/vlib/json/json_primitives.v
++++ b/vlib/json/json_primitives.v
+@@ -3,9 +3,15 @@
+ // that can be found in the LICENSE file.
+ module json
+ 
+-#flag -I @VEXEROOT/thirdparty/cJSON
+-#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++$if $pkgconfig('libcjson') {
++	#pkgconfig libcjson
++} $else {
++	#flag -I @VEXEROOT/thirdparty/cJSON
++	#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++}
++
+ #include "cJSON.h"
++
+ #define js_get(object, key) cJSON_GetObjectItemCaseSensitive((object), (key))
+ 
+ pub struct C.cJSON {
+-- 
+2.35.1
+

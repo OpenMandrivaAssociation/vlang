@@ -1,0 +1,29 @@
+From 9786ca04cfa8705d066b8ad1b037424a28e73188 Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Tue, 2 Aug 2022 05:52:48 +0200
+Subject: [PATCH] compress: support system miniz library through pkgconfig
+
+---
+ vlib/compress/compress.v | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/vlib/compress/compress.v b/vlib/compress/compress.v
+index bc0c350ba..8a52889e8 100644
+--- a/vlib/compress/compress.v
++++ b/vlib/compress/compress.v
+@@ -1,6 +1,11 @@
+ module compress
+ 
+-#flag -I @VEXEROOT/thirdparty/zip
++$if $pkgconfig('miniz') {
++	#pkgconfig miniz
++} $else {
++	#flag -I @VEXEROOT/thirdparty/zip
++}
++
+ #include "miniz.h"
+ 
+ pub const max_size = u64(1 << 31)
+-- 
+2.35.1
+

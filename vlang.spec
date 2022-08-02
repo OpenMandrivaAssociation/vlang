@@ -17,13 +17,18 @@ Source1:  vc_%{version}.tar.xz
 Source2:  vmod_markdown_bbbd324.zip
 Patch0:   bultin-always-enable-GC_THREADS.patch
 Patch1:   builtin-force-dynamic-gc-lib.patch
+Patch2:   json-support-system-library-through-pkgconfig.patch
+Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
 
 BuildRequires: git-core
 BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
+BuildRequires: pkgconfig(libcjson)
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(mariadb)
+BuildRequires: pkgconfig(miniz)
 BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(stb)
 
 Provides: v = %{version}-%{release}
 
@@ -36,6 +41,11 @@ Simple, fast, safe, compiled. For developing maintainable software.
 
 # Required for the "build-tools" command.
 %setup -T -D -a 2 -q -n %{realname}-%{version}
+
+# Remove all bundled dependencies.
+# "stdatomic" is a cross-platform wrapper, required.
+shopt -s extglob
+rm -r thirdparty/!(stdatomic)/
 
 mkdir -p ~/.vmodules
 mv -vn markdown-master ~/.vmodules/markdown
@@ -58,13 +68,13 @@ $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 
 %install
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libexecdir}/%{name}
-cp -a %{realname} %{realname}.mod %{realname}lib cmd %{buildroot}%{_libexecdir}/%{name}/
+cp -a %{realname} %{realname}.mod %{realname}lib cmd thirdparty %{buildroot}%{_libexecdir}/%{name}/
 ln -s %{_libexecdir}/%{name}/%{realname} %{buildroot}%{_bindir}/%{realname}
 touch %{buildroot}%{_libexecdir}/%{name}/cmd/tools/.disable_autorecompilation
 
 %files
-%dir %{_libexecdir}/%{name}
 %doc doc/* CHANGELOG.md
 %license LICENSE
 
 %{_bindir}/%{realname}
+%{_libexecdir}/%{name}
