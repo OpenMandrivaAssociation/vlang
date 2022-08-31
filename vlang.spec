@@ -64,7 +64,7 @@ $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 ./v build-tools
 
 %check
-./v test vlib/v/tests
+VTEST_JUST_ESSENTIAL=1 ./v test-self
 
 %install
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libexecdir}/%{name}
