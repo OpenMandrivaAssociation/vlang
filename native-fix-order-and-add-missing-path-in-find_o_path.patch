@@ -1,0 +1,26 @@
+From fe913c3beab4f24749fe3c8b4e3742e0329ae4e9 Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Thu, 1 Sep 2022 01:26:40 +0200
+Subject: [PATCH] native: fix order and add missing path in find_o_path()
+
+This fixes the linker failing when:
+
+- 32 bit libraries exist in "/usr/lib".
+- 64 bit libraries are in "/usr/lib64" and not "/usr/lib/x86_64-linux-gnu".
+---
+ vlib/v/gen/native/elf.v | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/vlib/v/gen/native/elf.v b/vlib/v/gen/native/elf.v
+index 14318481bf899..5314c7ef0c68c 100644
+--- a/vlib/v/gen/native/elf.v
++++ b/vlib/v/gen/native/elf.v
+@@ -746,7 +746,7 @@ pub fn (mut g Gen) prepend_vobjpath(paths []string) []string {
+ }
+ 
+ pub fn (mut g Gen) find_o_path(fname string) string {
+-	opaths := g.prepend_vobjpath(['/usr/lib', '/usr/lib/x86_64-linux-gnu'])
++	opaths := g.prepend_vobjpath(['/usr/lib/x86_64-linux-gnu', '/usr/lib64', '/usr/lib'])
+ 	for opath in opaths {
+ 		fpath := os.join_path_single(opath, fname)
+ 		if os.is_file(fpath) {

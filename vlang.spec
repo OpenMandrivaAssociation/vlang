@@ -19,6 +19,7 @@ Patch0:   builtin-force-dynamic-gc-lib.patch
 Patch1:   vlib-support-system-stb-through-pkgconfig.patch
 Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
+Patch4:   native-fix-order-and-add-missing-path-in-find_o_path.patch
 
 BuildRequires: git-core
 BuildRequires: devel(libatomic)
