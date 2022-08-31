@@ -1,0 +1,52 @@
+From df23abcdb61855e448a21b006ae81aff29d7ae48 Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Mon, 1 Aug 2022 23:11:25 +0200
+Subject: [PATCH] json: support system cJSON library through pkgconfig
+
+---
+ vlib/json/cjson/cjson_wrapper.v |  9 +++++++--
+ vlib/json/json_primitives.v     | 10 ++++++++--
+ 2 files changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/vlib/json/cjson/cjson_wrapper.v b/vlib/json/cjson/cjson_wrapper.v
+index d664b8de3b7e0..bc4a131dd2feb 100644
+--- a/vlib/json/cjson/cjson_wrapper.v
++++ b/vlib/json/cjson/cjson_wrapper.v
+@@ -8,8 +8,13 @@ module cjson
+ // that has NULL leaves for example, which is currently not convenient/easy to do with just the
+ // high level `json.encode(value)` API that V has.
+ 
+-#flag -I @VEXEROOT/thirdparty/cJSON
+-#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++$if $pkgconfig('libcjson') {
++	#pkgconfig libcjson
++} $else {
++	#flag -I @VEXEROOT/thirdparty/cJSON
++	#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++}
++
+ #include "cJSON.h"
+ 
+ [typedef]
+diff --git a/vlib/json/json_primitives.v b/vlib/json/json_primitives.v
+index a6aac14c35a78..8eeea2ed293fc 100644
+--- a/vlib/json/json_primitives.v
++++ b/vlib/json/json_primitives.v
+@@ -3,9 +3,15 @@
+ // that can be found in the LICENSE file.
+ module json
+ 
+-#flag -I @VEXEROOT/thirdparty/cJSON
+-#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++$if $pkgconfig('libcjson') {
++	#pkgconfig libcjson
++} $else {
++	#flag -I @VEXEROOT/thirdparty/cJSON
++	#flag @VEXEROOT/thirdparty/cJSON/cJSON.o
++}
++
+ #include "cJSON.h"
++
+ #define js_get(object, key) cJSON_GetObjectItemCaseSensitive((object), (key))
+ 
+ pub const used = 1

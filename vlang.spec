@@ -7,7 +7,7 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.3
+Version:  0.3.1
 Release:  1
 License:  MIT
 Group:    Development/Other
@@ -15,10 +15,9 @@ Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
 Source2:  vmod_markdown_bbbd324.zip
-Patch0:   bultin-always-enable-GC_THREADS.patch
-Patch1:   builtin-force-dynamic-gc-lib.patch
-Patch2:   json-support-system-library-through-pkgconfig.patch
-Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
+Patch0:   builtin-force-dynamic-gc-lib.patch
+Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
+Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
 
 BuildRequires: git-core
 BuildRequires: devel(libatomic)
