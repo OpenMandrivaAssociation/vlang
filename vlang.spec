@@ -16,8 +16,9 @@ Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
 Source2:  vmod_markdown_bbbd324.zip
 Patch0:   builtin-force-dynamic-gc-lib.patch
-Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
-Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
+Patch1:   vlib-support-system-stb-through-pkgconfig.patch
+Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
+Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
 
 BuildRequires: git-core
 BuildRequires: devel(libatomic)
