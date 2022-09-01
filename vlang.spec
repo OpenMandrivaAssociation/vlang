@@ -21,8 +21,8 @@ Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
 Patch4:   native-fix-order-and-add-missing-path-in-find_o_path.patch
 
+BuildRequires: atomic-devel
 BuildRequires: git-core
-BuildRequires: devel(libatomic)
 BuildRequires: pkgconfig(bdw-gc)
 BuildRequires: pkgconfig(libcjson)
 BuildRequires: pkgconfig(libssl)
