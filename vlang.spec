@@ -27,7 +27,11 @@ BuildRequires: pkgconfig(libcjson)
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(mariadb)
 BuildRequires: pkgconfig(miniz)
+BuildRequires: pkgconfig(opengl)
 BuildRequires: pkgconfig(sqlite3)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xi)
 
 Provides: v = %{version}-%{release}
 
