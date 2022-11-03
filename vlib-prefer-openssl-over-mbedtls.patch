@@ -1,0 +1,8 @@
+diff --git a/vlib/net/ssl/ssl_notd_use_openssl.v b/vlib/net/ssl/ssl_d_use_mbedtls.v
+similarity index 100%
+rename from vlib/net/ssl/ssl_notd_use_openssl.v
+rename to vlib/net/ssl/ssl_d_use_mbedtls.v
+diff --git a/vlib/net/ssl/ssl_d_use_openssl.v b/vlib/net/ssl/ssl_notd_use_mbedtls.v
+similarity index 100%
+rename from vlib/net/ssl/ssl_d_use_openssl.v
+rename to vlib/net/ssl/ssl_notd_use_mbedtls.v

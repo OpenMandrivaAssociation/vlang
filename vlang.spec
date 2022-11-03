@@ -7,19 +7,18 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.3.1
+Version:  0.3.2
 Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
-Source2:  vmod_markdown_bbbd324.zip
+Source2:  vmod_markdown_014724a.tar.xz
 Patch0:   builtin-force-dynamic-gc-lib.patch
-Patch1:   vlib-support-system-stb-through-pkgconfig.patch
-Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
-Patch3:   compress-support-system-miniz-library-through-pkgconfig.patch
-Patch4:   native-fix-order-and-add-missing-path-in-find_o_path.patch
+Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
+Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
+Patch3:   vlib-prefer-openssl-over-mbedtls.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core
@@ -29,7 +28,6 @@ BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(mariadb)
 BuildRequires: pkgconfig(miniz)
 BuildRequires: pkgconfig(sqlite3)
-BuildRequires: pkgconfig(stb)
 
 Provides: v = %{version}-%{release}
 
@@ -43,10 +41,14 @@ Simple, fast, safe, compiled. For developing maintainable software.
 # Required for the "build-tools" command.
 %setup -T -D -a 2 -q -n %{realname}-%{version}
 
-# Remove all bundled dependencies.
-# "stdatomic" is a cross-platform wrapper, required.
+# Remove as many bundled dependencies as possible.
+# Required:
+# - "fontstash": font processing headers.
+# - "sokol": video and audio rendering.
+# - "stb_image": stb with a few modifications, mostly wrappers.
+# - "stdatomic": cross-platform wrappers for atomic stuff.
 shopt -s extglob
-rm -r thirdparty/!(stdatomic)/
+rm -r thirdparty/!(fontstash|sokol|stb_image|stdatomic)/
 
 mkdir -p ~/.vmodules
 mv -vn markdown-master ~/.vmodules/markdown
