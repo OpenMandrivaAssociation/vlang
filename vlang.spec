@@ -7,8 +7,8 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.3.3
-Release:  2
+Version:  0.3.4
+Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
