@@ -7,14 +7,14 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.3.4
+Version:  0.4.1
 Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
-Source2:  vmod_markdown_6e970bd.tar.xz
+Source2:  vmod_markdown_3a173be.tar.xz
 Patch0:   builtin-force-dynamic-gc-lib.patch
 Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
