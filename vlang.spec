@@ -7,8 +7,8 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.4.1
-Release:  2
+Version:  0.4.2
+Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
@@ -19,8 +19,6 @@ Patch0:   builtin-force-dynamic-gc-lib.patch
 Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
 Patch3:   vlib-prefer-openssl-over-mbedtls.patch
-Patch4:   net.http.fetch_default_method.patch
-Patch5:   net.http.request_default_method.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core
