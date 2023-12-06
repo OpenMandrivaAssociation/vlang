@@ -1,16 +1,14 @@
-From 9786ca04cfa8705d066b8ad1b037424a28e73188 Mon Sep 17 00:00:00 2001
 From: Davide Beatrici <git@davidebeatrici.dev>
-Date: Tue, 2 Aug 2022 05:52:48 +0200
 Subject: [PATCH] compress: support system miniz library through pkgconfig
 
 ---
- vlib/compress/compress.v | 7 ++++++-
+ vlib/compress/compress.c.v | 7 ++++++-
  1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/vlib/compress/compress.v b/vlib/compress/compress.v
+diff --git a/vlib/compress/compress.c.v b/vlib/compress/compress.c.v
 index bc0c350ba..8a52889e8 100644
---- a/vlib/compress/compress.v
-+++ b/vlib/compress/compress.v
+--- a/vlib/compress/compress.c.v
++++ b/vlib/compress/compress.c.v
 @@ -1,6 +1,11 @@
  module compress
  
