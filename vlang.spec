@@ -7,19 +7,18 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.4.3
+Version:  0.4.9
 Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
-Source2:  vmod_markdown_0c28013.tar.xz
+Source2:  vmod_markdown_8098e03.tar.xz
 Patch0:   builtin-force-dynamic-gc-lib.patch
 Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
 Patch3:   vlib-prefer-openssl-over-mbedtls.patch
-Patch4:   time-fix-off-by-1-error-in-must_be_valid_three_letter_month.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core

@@ -1,16 +1,6 @@
-From: Davide Beatrici <git@davidebeatrici.dev>
-Subject: [PATCH] json: support system cJSON library through pkgconfig
-
----
- vlib/json/cjson/cjson_wrapper.c.v |  9 +++++++--
- vlib/json/json_primitives.c.v     | 10 ++++++++--
- 2 files changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/vlib/json/cjson/cjson_wrapper.c.v b/vlib/json/cjson/cjson_wrapper.c.v
-index d664b8de3b7e0..bc4a131dd2feb 100644
 --- a/vlib/json/cjson/cjson_wrapper.c.v
 +++ b/vlib/json/cjson/cjson_wrapper.c.v
-@@ -8,8 +8,13 @@ module cjson
+@@ -8,8 +8,13 @@
  // that has NULL leaves for example, which is currently not convenient/easy to do with just the
  // high level `json.encode(value)` API that V has.
  
@@ -25,9 +15,8 @@ index d664b8de3b7e0..bc4a131dd2feb 100644
 +
  #include "cJSON.h"
  
- [typedef]
-diff --git a/vlib/json/json_primitives.c.v b/vlib/json/json_primitives.c.v
-index a6aac14c35a78..8eeea2ed293fc 100644
+ @[typedef]
+
 --- a/vlib/json/json_primitives.c.v
 +++ b/vlib/json/json_primitives.c.v
 @@ -3,9 +3,15 @@
@@ -47,4 +36,4 @@ index a6aac14c35a78..8eeea2ed293fc 100644
 +
  #define js_get(object, key) cJSON_GetObjectItemCaseSensitive((object), (key))
  
- pub const used = 1
+ pub struct C.cJSON {
