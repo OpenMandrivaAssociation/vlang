@@ -1,0 +1,18 @@
+--- a/vlib/compress/zstd/zstd.c.v
++++ b/vlib/compress/zstd/zstd.c.v
+@@ -6,8 +6,13 @@
+ import os
+ import encoding.binary
+ 
+-#flag -I @VMODROOT/thirdparty/zstd
+-#include "zstd.c"	// msvc can't compile multiple source files, so included
++$if $pkgconfig('libzstd') {
++	#pkgconfig libzstd
++	#include "zstd.h"
++} $else {
++	#flag -I @VMODROOT/thirdparty/zstd
++	#include "zstd.c"	// msvc can't compile multiple source files, so included
++}
+ 
+ const zstd_frame_header_size_max = 18
+ const zstd_content_size_unknown = u64(-1)

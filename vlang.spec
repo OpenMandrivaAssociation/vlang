@@ -8,7 +8,7 @@
 Summary:  The V Programming Language
 Name:     vlang
 Version:  0.4.9
-Release:  1
+Release:  2
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
@@ -16,17 +16,20 @@ Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
 Source1:  vc_%{version}.tar.xz
 Source2:  vmod_markdown_8098e03.tar.xz
 Patch0:   builtin-force-dynamic-gc-lib.patch
-Patch1:   json-support-system-cJSON-library-through-pkgconfig.patch
-Patch2:   compress-support-system-miniz-library-through-pkgconfig.patch
-Patch3:   vlib-prefer-openssl-over-mbedtls.patch
+Patch1:   compress-support-system-zstd-library-through-pkgconfig.patch
+Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
+Patch3:   net-support-system-mbedtls-library-through-pkgconfig.patch
+Patch4:   vlib-prefer-openssl-over-mbedtls.patch
+Patch5:   v-gen-define-_GNU_SOURCE.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core
 BuildRequires: pkgconfig(bdw-gc)
 BuildRequires: pkgconfig(libcjson)
 BuildRequires: pkgconfig(libssl)
+BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(mariadb)
-BuildRequires: pkgconfig(miniz)
+BuildRequires: pkgconfig(mbedtls)
 BuildRequires: pkgconfig(opengl)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(x11)
@@ -51,8 +54,9 @@ Simple, fast, safe, compiled. For developing maintainable software.
 # - "sokol": video and audio rendering.
 # - "stb_image": stb with a few modifications, mostly wrappers.
 # - "stdatomic": cross-platform wrappers for atomic stuff.
+# - "zip": miniz + wrapper.
 shopt -s extglob
-rm -r thirdparty/!(fontstash|sokol|stb_image|stdatomic)/
+rm -r thirdparty/!(fontstash|sokol|stb_image|stdatomic|zip)/
 
 mkdir -p ~/.vmodules
 mv -vn markdown-master ~/.vmodules/markdown
@@ -71,7 +75,7 @@ $CC $CFLAGS -std=gnu99 -w -o tmp_1 v.c -lm -lpthread $LDFLAGS
 ./v build-tools
 
 %check
-VTEST_JUST_ESSENTIAL=1 ./v test-self
+./v test-self
 
 %install
 mkdir -p %{buildroot}%{_bindir} %{buildroot}%{_libexecdir}/%{name}
