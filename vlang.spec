@@ -21,6 +21,7 @@ Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch3:   net-support-system-mbedtls-library-through-pkgconfig.patch
 Patch4:   vlib-prefer-openssl-over-mbedtls.patch
 Patch5:   v-gen-define-_GNU_SOURCE.patch
+Patch6:   vretry_test.v-independent-from-git.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core
