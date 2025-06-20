@@ -21,6 +21,7 @@ Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch3:   net-support-system-mbedtls-library-through-pkgconfig.patch
 Patch4:   vlib-prefer-openssl-over-mbedtls.patch
 Patch5:   os-don-t-resolve-symlinks-in-find_abs_path_of_execut.patch
+Patch6:   cgen-only-run-freestanding_module_import-on-amd64.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core

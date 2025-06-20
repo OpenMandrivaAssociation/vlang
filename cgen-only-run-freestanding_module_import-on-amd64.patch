@@ -1,0 +1,29 @@
+From 0dac8d7a1082f968bf09bc90e4b3520f07097971 Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Fri, 20 Jun 2025 09:34:38 +0200
+Subject: [PATCH] cgen: only run freestanding_module_import on amd64
+
+Other architectures are not supported due to missing ASM code.
+---
+ vlib/v/gen/c/coutput_test.v | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/vlib/v/gen/c/coutput_test.v b/vlib/v/gen/c/coutput_test.v
+index 155674cc9..2b25bf3c9 100644
+--- a/vlib/v/gen/c/coutput_test.v
++++ b/vlib/v/gen/c/coutput_test.v
+@@ -270,6 +270,11 @@ fn should_skip(relpath string) bool {
+ 		}
+ 	}
+ 	if relpath.contains('freestanding_module_import_') {
++		$if !amd64 {
++			// https://github.com/vlang/v/issues/23397
++			eprintln('> skipping ${relpath} on != amd64')
++			return true
++		}
+ 		if user_os != 'linux' {
+ 			eprintln('> skipping ${relpath} on != linux')
+ 			return true
+-- 
+2.47.1
+
