@@ -1,0 +1,44 @@
+From e92990c751a94d4e4acb4de8f9615758b5b1203e Mon Sep 17 00:00:00 2001
+From: Davide Beatrici <git@davidebeatrici.dev>
+Date: Fri, 20 Jun 2025 07:29:40 +0200
+Subject: [PATCH] os: don't resolve symlinks in find_abs_path_of_executable()
+
+This fixes aliases and wrappers being ignored.
+
+Resolving the symlinks can cause breakage, an example is coreutils:
+commands such as "echo" are just a symlink to a single binary.
+The name of the symlink tells the program which tool is requested.
+
+Or even worse, in the case of security helpers such as firejail:
+a symlink is created in one of the top priority folders in PATH,
+so that firejail steps in and knows what to run.
+Resolving the symlink would make the program run outside a jail!
+---
+ vlib/os/os.v | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/vlib/os/os.v b/vlib/os/os.v
+index 29bb90df7..75ddf3d7b 100644
+--- a/vlib/os/os.v
++++ b/vlib/os/os.v
+@@ -598,7 +598,7 @@ pub fn find_abs_path_of_executable(exe_name string) !string {
+ 	for suffix in executable_suffixes {
+ 		fexepath := exe_name + suffix
+ 		if is_abs_path(fexepath) {
+-			return real_path(fexepath)
++			return fexepath
+ 		}
+ 		mut res := ''
+ 		path := getenv('PATH')
+@@ -614,7 +614,7 @@ pub fn find_abs_path_of_executable(exe_name string) !string {
+ 			}
+ 		}
+ 		if res.len > 0 {
+-			return real_path(res)
++			return abs_path(res)
+ 		}
+ 	}
+ 	return error_failed_to_find_executable()
+-- 
+2.47.1
+

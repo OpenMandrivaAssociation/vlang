@@ -15,7 +15,7 @@
 +
  #include "cJSON.h"
  
- @[typedef]
+ // As cJSON use `libm`, we need to link it.
 
 --- a/vlib/json/json_primitives.c.v
 +++ b/vlib/json/json_primitives.c.v
@@ -36,4 +36,4 @@
 +
  #define js_get(object, key) cJSON_GetObjectItemCaseSensitive((object), (key))
  
- pub struct C.cJSON {
+ // As cJSON use `libm`, we need to link it.

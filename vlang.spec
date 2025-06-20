@@ -7,24 +7,25 @@
 
 Summary:  The V Programming Language
 Name:     vlang
-Version:  0.4.9
-Release:  2
+Version:  0.4.11
+Release:  1
 License:  MIT
 Group:    Development/Other
 Url:      https://vlang.io
 Source0:  %{gitbase}/%{upstream}/%{realname}/archive/refs/tags/%{version}.tar.gz
-Source1:  vc_%{version}.tar.xz
-Source2:  vmod_markdown_8098e03.tar.xz
+Source1:  vc_%{version}.tar.zst
+Source2:  vmod_markdown_5a1c9d8.tar.zst
 Patch0:   builtin-force-dynamic-gc-lib.patch
 Patch1:   compress-support-system-zstd-library-through-pkgconfig.patch
 Patch2:   json-support-system-cJSON-library-through-pkgconfig.patch
 Patch3:   net-support-system-mbedtls-library-through-pkgconfig.patch
 Patch4:   vlib-prefer-openssl-over-mbedtls.patch
-Patch5:   v-gen-define-_GNU_SOURCE.patch
-Patch6:   vretry_test.v-independent-from-git.patch
+Patch5:   os-don-t-resolve-symlinks-in-find_abs_path_of_execut.patch
 
 BuildRequires: atomic-devel
 BuildRequires: git-core
+BuildRequires: glibc-debuginfo
+BuildRequires: valgrind
 BuildRequires: pkgconfig(bdw-gc)
 BuildRequires: pkgconfig(libcjson)
 BuildRequires: pkgconfig(libssl)
@@ -36,6 +37,7 @@ BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xrandr)
 
 Provides: v = %{version}-%{release}
 
